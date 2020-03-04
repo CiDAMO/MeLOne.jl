@@ -1,0 +1,4 @@
+name = "MeLOne"
+uuid = "c6a0a17d-ae9a-40f8-ac24-b0422b5b4c49"
+authors = ["Abel Soares Siqueira <abel.s.siqueira@gmail.com>"]
+version = "0.1.0"
