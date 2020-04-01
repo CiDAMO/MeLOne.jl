@@ -13,4 +13,30 @@ using LinearAlgebra, Test
   y = [0, 0, 0, 1, 1, 1, 1, 1]
 
   @test predict(model, X) == y
+
+  model = DecisionTree()
+  fit!(model, X, y)
+  @test predict(model, X) == y
+
+  n = 400
+  X = rand(n, 2)
+  y = rand(0:1, n)
+  model = DecisionTree()
+  fit!(model, X, y)
+  @test predict(model, X) == y
+
+  X = [1 1
+       1 2
+       2 1
+       2 2
+       3 2
+       2 3
+       3 3]
+  y = [:blue, :blue, :blue, :red, :red, :red, :red]
+  model = DecisionTree()
+  fit!(model, X, y)
+  X_te = [0.5 0.5;
+          2.5 2.5;
+          3.5 3.5]
+  @test predict(model, X_te) == [:blue, :red, :red]
 end
