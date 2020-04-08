@@ -25,6 +25,10 @@ using LinearAlgebra, Test
   fit!(model, X, y)
   @test predict(model, X) == y
 
+  model = DecisionTree(max_depth=2, splitter=:random)
+  fit!(model, X, y)
+  @test predict(model, X) != y
+
   X = [1 1
        1 2
        2 1
