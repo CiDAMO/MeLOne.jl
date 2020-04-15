@@ -31,8 +31,8 @@ In addition, some models will implement
 
 ## Examples
 
-<img src="example/decision-tree-8.png" height="200">
-<img src="example/knnclassifier.png" height="200">
-<img src="example/linear-regression.png" height="200">
-<img src="example/logistic-regression.png" height="200">
-<img src="example/random-forest-5.png" height="200">
+<img src="example/decision-tree-8.png" height="400">
+<img src="example/knnclassifier.png" height="400">
+<img src="example/linear-regression.png" height="400">
+<img src="example/logistic-regression.png" height="400">
+<img src="example/random-forest-5.png" height="400">
