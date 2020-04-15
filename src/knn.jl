@@ -1,8 +1,6 @@
-using LinearAlgebra
+export KNNClassifier
 
-export KNNClassifier, fit!, predict
-
-mutable struct KNNClassifier
+mutable struct KNNClassifier <: MeLOneModel
   X :: Matrix
   y :: Vector
 

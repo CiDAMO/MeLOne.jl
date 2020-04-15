@@ -1,8 +1,8 @@
-export LogisticRegression, fit!, predict, predict_proba
+export LogisticRegression
 
 using JSOSolvers, LinearAlgebra, Logging, NLPModels
 
-mutable struct LogisticRegression
+mutable struct LogisticRegression <: MeLOneModel
   β :: Vector
   threshold :: Float64
   λ :: Float64

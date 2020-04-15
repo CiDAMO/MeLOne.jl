@@ -1,8 +1,8 @@
-export LinearRegression, fit!, predict
+export LinearRegression
 
 using Krylov
 
-mutable struct LinearRegression
+mutable struct LinearRegression <: MeLOneModel
   β :: Vector
 end
 

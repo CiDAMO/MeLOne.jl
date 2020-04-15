@@ -1,6 +1,4 @@
-using LinearAlgebra
-
-export DecisionTree, fit!, predict, predict_proba
+export DecisionTree
 
 mutable struct Subset
   I :: Vector{Int}
@@ -14,7 +12,7 @@ mutable struct Node
   threshold :: Real
 end
 
-mutable struct DecisionTree
+mutable struct DecisionTree <: MeLOneModel
   root :: Union{Node, Subset}
   _classes :: Vector
 

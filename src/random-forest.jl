@@ -1,8 +1,6 @@
-using LinearAlgebra
+export RandomForest
 
-export RandomForest, fit!, predict, predict_proba
-
-mutable struct RandomForest
+mutable struct RandomForest <: MeLOneModel
   _classes :: Vector
   trees :: Vector{DecisionTree}
 
