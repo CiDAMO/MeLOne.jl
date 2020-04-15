@@ -21,12 +21,17 @@ mutable struct DecisionTree
   options :: Dict{Symbol,Any}
 end
 
-const option_list = [(:min_impurity_decrease, 0.0), (:max_depth, Inf), (:splitter, :best)]
+import Base.show
+function show(io :: IO, tree :: DecisionTree)
+  print(io, "🌲 DecisionTree")
+end
+
+const decision_tree_option_list = [(:min_impurity_decrease, 0.0), (:max_depth, Inf), (:splitter, :best)]
 
 function DecisionTree(root, classes; kwargs...)
-  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in option_list)
+  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_option_list)
   for k in keys(kwargs)
-    if !(k in getfield.(option_list, 1))
+    if !(k in getfield.(decision_tree_option_list, 1))
       @warn "Keyword argument $k ignored"
     end
   end
@@ -36,9 +41,9 @@ end
 
 function DecisionTree(; kwargs...)
   s = Subset(Int[], Float64[])
-  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in option_list)
+  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_option_list)
   for k in keys(kwargs)
-    if !(k in getfield.(option_list, 1))
+    if !(k in getfield.(decision_tree_option_list, 1))
       @warn "Keyword argument $k ignored"
     end
   end
@@ -94,8 +99,18 @@ function gini_split(I, X, y, classes, curr_depth;
       end
     end
   elseif splitter == :random
-    best_c = rand(1:p)
-    best_t = rand(sort(X[I,best_c])[2:end])
+    c_opts = collect(1:p)
+    best_c = rand(c_opts)
+    t_opts = sort(unique(X[I,best_c]))
+    while length(t_opts) == 1
+      setdiff!(c_opts, best_c)
+      if length(c_opts) == 0
+        error("Unexpected error: no options for column split. Please open an issue on MeLOne.jl")
+      end
+      best_c = rand(c_opts)
+      t_opts = sort(unique(X[I,best_c]))
+    end
+    best_t = rand(t_opts[2:end])
     best_Iright = I[findall(X[I,best_c] .≥ best_t)]
     best_Ileft = setdiff(I, best_Iright)
     best_gini = length(best_Iright) * gini(classes, y[best_Iright]) / n +
@@ -103,16 +118,28 @@ function gini_split(I, X, y, classes, curr_depth;
   else
     @error "Unknown value for parameter splitter: $splitter. Possible values are :best and :random"
   end
+
+  has_diff_rows = [false, false]
+  for (c,II) in enumerate([best_Ileft, best_Iright])
+    for i = II, j = II
+      i ≤ j && continue
+      if X[i,:] != X[j,:]
+        has_diff_rows[c] = true
+        break
+      end
+    end
+  end
   Δgini = (full_gini - best_gini) * n / length(y)
   stopnow = (Δgini < min_impurity_decrease) ||
             (curr_depth == max_depth - 1)
+
   left = if length(unique(y[best_Ileft])) == 1
     # In the future, allow early stop
     probs = zeros(length(classes))
     c = y[best_Ileft[1]]
     probs[findfirst(c .== classes)] = 1.0
     Subset(best_Ileft, probs)
-  elseif stopnow
+  elseif stopnow || !has_diff_rows[1]
     # In the future, allow early stop
     probs = [sum(y[best_Ileft] .== c) for c in classes] / length(best_Ileft)
     Subset(best_Ileft, probs)
@@ -129,7 +156,7 @@ function gini_split(I, X, y, classes, curr_depth;
     c = y[best_Iright[1]]
     probs[findfirst(c .== classes)] = 1.0
     Subset(best_Iright, probs)
-  elseif stopnow
+  elseif stopnow || !has_diff_rows[2]
     # In the future, allow early stop
     probs = [sum(y[best_Iright] .== c) for c in classes] / length(best_Iright)
     Subset(best_Iright, probs)
@@ -144,10 +171,12 @@ function gini_split(I, X, y, classes, curr_depth;
 end
 
 function fit!(model :: DecisionTree,
-              X :: Matrix, y :: Vector)
+              X :: Matrix, y :: Vector;
+              classes = unique(y)
+             )
   n = size(X, 1)
   I = 1:n
-  model._classes = unique(y)
+  model._classes = classes
   model.root = gini_split(I, X, y, model._classes, 0;
                           max_depth=model.options[:max_depth],
                           min_impurity_decrease=model.options[:min_impurity_decrease],
@@ -177,7 +206,7 @@ function predict(model :: DecisionTree,
 end
 
 function predict_proba(model :: DecisionTree,
-                 X :: Matrix)
+                       X :: Matrix)
 
   n = size(X, 1)
   y_pred = zeros(n, length(model._classes))
