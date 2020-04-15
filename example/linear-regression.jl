@@ -14,6 +14,8 @@ function linear_regression()
   xg = range(0, 1, length=100)
   X = [ones(100)  xg  xg.^2]
   plot!(xg, predict(model, X), lab="model")
+  title!("LinearRegression")
+
   png("linear-regression")
 end
 

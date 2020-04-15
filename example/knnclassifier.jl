@@ -17,7 +17,7 @@ function knnclassifier()
   heatmap(xg, yg, pred, c=cgrad([:pink, :lightblue]))
   scatter!(X[:,1], X[:,2], c=y, leg=false)
   y_pred = predict(model, X)
-  title!("acc = $(accuracy_score(y, y_pred))")
+  title!("KNNClassifier: acc = $(accuracy_score(y, y_pred))")
 
   png("knnclassifier")
 end

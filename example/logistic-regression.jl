@@ -17,8 +17,7 @@ function Logistic_regression()
   heatmap(xg, yg, pred, c=cgrad([:pink, :lightblue]))
   scatter!(X[:,1], X[:,2], c=y, leg=false)
   y_pred = predict(model, X)
-  title!("acc = $(accuracy_score(y, y_pred))")
-
+  title!("LogisticRegression: acc = $(accuracy_score(y, y_pred))")
   png("logistic-regression")
 
   X_ply = [X   X[:,1].^2   X[:,1] .* X[:,2]   X[:,2].^2]
@@ -33,7 +32,7 @@ function Logistic_regression()
   heatmap(xg, yg, pred_ply, c=cgrad([:pink, :lightblue]))
   scatter!(X[:,1], X[:,2], c=y, leg=false)
   y_pred = predict(model, X_ply)
-  title!("acc = $(accuracy_score(y, y_pred))")
+  title!("LogisticRegression: acc = $(accuracy_score(y, y_pred))")
 
   png("logistic-regression-poly2")
 end

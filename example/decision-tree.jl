@@ -21,7 +21,7 @@ function decisiontree()
     heatmap(xg, yg, pred, c=cgrad([:pink, :lightblue]))
     scatter!(X[:,1], X[:,2], c=y, leg=false)
     y_pred = predict(model, X)
-    title!("acc = $(accuracy_score(y, y_pred)), max_depth=$max_depth, splitter=$spl")
+    title!("DecisionTree: acc = $(accuracy_score(y, y_pred)), max_depth=$max_depth, splitter=$spl")
 
     png("decision-tree-$k")
     k += 1

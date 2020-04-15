@@ -22,7 +22,7 @@ function randomforest()
     heatmap(xg, yg, pred, c=cgrad([:pink, :lightblue]))
     scatter!(X[:,1], X[:,2], c=y, leg=false)
     y_pred = predict(model, X)
-    title!("acc = $(accuracy_score(y, y_pred)), max_depth=$max_depth")
+    title!("RandomForest: acc = $(accuracy_score(y, y_pred)), max_depth=$max_depth")
 
     png("random-forest-$k")
     k += 1
