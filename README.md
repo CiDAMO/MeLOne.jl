@@ -28,3 +28,11 @@ Our objective is that all our methods implement the following API:
 In addition, some models will implement
 
 - `pred_matrix = predict_proba(model, X)`
+
+## Examples
+
+<img src="example/decision-regression.png" height="200">
+<img src="example/knnclassifier.png" height="200">
+<img src="example/linear-regression.png" height="200">
+<img src="example/logistic-regression.png" height="200">
+<img src="example/random-forest-5.png" height="200">
