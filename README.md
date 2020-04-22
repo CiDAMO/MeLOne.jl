@@ -10,6 +10,7 @@ We have implemented a simple version of the following methods:
 
 *Regression*:
 - Linear Regression
+- KNN
 
 *Classification*:
 - DecisionTree
@@ -33,6 +34,7 @@ In addition, some models will implement
 
 <img src="example/decision-tree-8.png" height="400">
 <img src="example/knnclassifier.png" height="400">
+<img src="example/knnregressor-4.png" height="400">
 <img src="example/linear-regression.png" height="400">
 <img src="example/logistic-regression.png" height="400">
 <img src="example/random-forest-5.png" height="400">
