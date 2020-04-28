@@ -35,7 +35,7 @@ function predict(model :: KNNRegressor,
 
   w_opt = model.options[:weights]
 
-  y_pred = Vector{eltype(model.y)}(undef, n)
+  y_pred = zeros(eltype(model.y), n)
   for i = 1:n
     D = [norm(X[i,:] - model.X[j,:]) for j = 1:n_tr]
     I = sortperm(D)
