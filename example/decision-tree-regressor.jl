@@ -9,8 +9,8 @@ function decision_tree_regressor()
   X = reshape(x, n, 1)
 
   c = 1
-  for d = 1:5
-    model = DecisionTreeRegressor(max_depth=d)
+  for s in [:best, :random], d = 1:4
+    model = DecisionTreeRegressor(max_depth=d, splitter=s)
     fit!(model, X, y)
     y_pred = predict(model, X)
 
@@ -21,7 +21,7 @@ function decision_tree_regressor()
     plot!(xg, yg, c=:red, lw=2)
 
     r2 = round(r2_score(y, y_pred), digits=2)
-    title!("DecisionTreeRegressor: max_depth=$d, r2 = $r2")
+    title!("DecisionTreeRegressor: max_depth=$d, splitter=$s, r2 = $r2")
 
     png("decision-tree-regressor-$c")
     c += 1

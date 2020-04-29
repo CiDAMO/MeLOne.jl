@@ -12,5 +12,9 @@ using LinearAlgebra, Test
 
   model = DecisionTreeRegressor()
   fit!(model, X, y)
-  @test r2_score(y, predict(model, X)) > 0.9
+  @test r2_score(y, predict(model, X)) == 1.0
+
+  model = DecisionTreeRegressor(splitter=:random)
+  fit!(model, X, y)
+  @test r2_score(y, predict(model, X)) == 1.0
 end
