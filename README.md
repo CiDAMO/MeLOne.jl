@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/CiDAMO/MeLOne.jl.svg?branch=master)](https://travis-ci.org/CiDAMO/MeLOne.jl)
 [![Coverage Status](https://coveralls.io/repos/github/CiDAMO/MeLOne.jl/badge.svg?branch=master)](https://coveralls.io/github/CiDAMO/MeLOne.jl?branch=master)
-<!--[![Documentation](https://img.shields.io/badge/docs-latest-1893f8)](https://cidamo.github.io/MeLOne.jl/latest)-->
+[![Documentation](https://img.shields.io/badge/docs-latest-1893f8)](https://cidamo.github.io/MeLOne.jl/dev/)
 
 ## Methods
 
