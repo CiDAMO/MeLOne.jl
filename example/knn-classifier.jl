@@ -2,7 +2,7 @@ using MeLOne
 using Plots
 gr(size=(800,600))
 
-function knnclassifier()
+function knn_classifier()
   n = 400
   X = 2 * rand(n, 2)
   y = [X[i,1].^2 + X[i,2].^2 < 1.5 + randn() * 0.6 ? 0 : 1 for i = 1:n]
@@ -19,7 +19,7 @@ function knnclassifier()
   y_pred = predict(model, X)
   title!("KNNClassifier: acc = $(accuracy_score(y, y_pred))")
 
-  png("knnclassifier")
+  png("knn-classifier")
 end
 
-knnclassifier()
+knn_classifier()

@@ -2,7 +2,7 @@ export RandomForest
 
 mutable struct RandomForest <: MeLOneModel
   _classes :: Vector
-  trees :: Vector{DecisionTree}
+  trees :: Vector{DecisionTreeClassifier}
 
   options :: Dict{Symbol,Any}
 end
@@ -17,7 +17,7 @@ function RandomForest(; kwargs...)
     end
   end
 
-  return RandomForest(Int[], DecisionTree[], options)
+  return RandomForest(Int[], DecisionTreeClassifier[], options)
 end
 
 import Base.show
@@ -32,7 +32,7 @@ function fit!(model :: RandomForest,
 
   model._classes = unique(y)
   for n = 1:model.options[:n_estimators]
-    tree = DecisionTree(;tree_options...)
+    tree = DecisionTreeClassifier(;tree_options...)
     fit!(tree, X, y, classes=model._classes)
     push!(model.trees, tree)
   end

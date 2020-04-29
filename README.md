@@ -9,13 +9,14 @@
 We have implemented a simple version of the following methods:
 
 *Regression*:
-- Linear Regression
-- KNN
+- DecisionTreeRegressor
+- LinearRegression
+- KNNRegressor
 
 *Classification*:
-- DecisionTree
-- KNN
-- Logistic Regression
+- DecisionTreeClassifier
+- KNNClassifier
+- LogisticRegression
 - RandomForest
 
 ## API
@@ -32,9 +33,10 @@ In addition, some models will implement
 
 ## Examples
 
-<img src="example/decision-tree-8.png" height="400">
-<img src="example/knnclassifier.png" height="400">
-<img src="example/knnregressor-4.png" height="400">
+<img src="example/decision-tree-classifier-8.png" height="400">
+<img src="example/decision-tree-regressor-3.png" height="400">
+<img src="example/knn-classifier.png" height="400">
+<img src="example/knn-regressor-4.png" height="400">
 <img src="example/linear-regression.png" height="400">
 <img src="example/logistic-regression.png" height="400">
 <img src="example/random-forest-5.png" height="400">

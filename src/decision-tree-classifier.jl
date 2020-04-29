@@ -1,4 +1,4 @@
-export DecisionTree
+export DecisionTreeClassifier
 
 mutable struct Subset
   I :: Vector{Int}
@@ -12,7 +12,7 @@ mutable struct Node
   threshold :: Real
 end
 
-mutable struct DecisionTree <: MeLOneModel
+mutable struct DecisionTreeClassifier <: MeLOneModel
   root :: Union{Node, Subset}
   _classes :: Vector
 
@@ -20,33 +20,33 @@ mutable struct DecisionTree <: MeLOneModel
 end
 
 import Base.show
-function show(io :: IO, tree :: DecisionTree)
-  print(io, "🌲 DecisionTree")
+function show(io :: IO, tree :: DecisionTreeClassifier)
+  print(io, "🌲 DecisionTreeClassifier")
 end
 
-const decision_tree_option_list = [(:min_impurity_decrease, 0.0), (:max_depth, Inf), (:splitter, :best)]
+const decision_tree_classifier_option_list = [(:min_impurity_decrease, 0.0), (:max_depth, Inf), (:splitter, :best)]
 
-function DecisionTree(root, classes; kwargs...)
-  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_option_list)
+function DecisionTreeClassifier(root, classes; kwargs...)
+  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_classifier_option_list)
   for k in keys(kwargs)
-    if !(k in getfield.(decision_tree_option_list, 1))
+    if !(k in getfield.(decision_tree_classifier_option_list, 1))
       @warn "Keyword argument $k ignored"
     end
   end
 
-  return DecisionTree(root, classes, options)
+  return DecisionTreeClassifier(root, classes, options)
 end
 
-function DecisionTree(; kwargs...)
+function DecisionTreeClassifier(; kwargs...)
   s = Subset(Int[], Float64[])
-  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_option_list)
+  options = Dict{Symbol,Any}(k => get(kwargs, k, v) for (k,v) in decision_tree_classifier_option_list)
   for k in keys(kwargs)
-    if !(k in getfield.(decision_tree_option_list, 1))
+    if !(k in getfield.(decision_tree_classifier_option_list, 1))
       @warn "Keyword argument $k ignored"
     end
   end
 
-  return DecisionTree(Node(s, s, 0, 0.0), Int[], options)
+  return DecisionTreeClassifier(Node(s, s, 0, 0.0), Int[], options)
 end
 
 """
@@ -168,7 +168,7 @@ function gini_split(I, X, y, classes, curr_depth;
   return Node(left, right, best_c, best_t)
 end
 
-function fit!(model :: DecisionTree,
+function fit!(model :: DecisionTreeClassifier,
               X :: Matrix, y :: Vector;
               classes = unique(y)
              )
@@ -184,7 +184,7 @@ function fit!(model :: DecisionTree,
   return model
 end
 
-function predict(model :: DecisionTree,
+function predict(model :: DecisionTreeClassifier,
                  X :: Matrix)
 
   n = size(X, 1)
@@ -203,7 +203,7 @@ function predict(model :: DecisionTree,
   return y_pred
 end
 
-function predict_proba(model :: DecisionTree,
+function predict_proba(model :: DecisionTreeClassifier,
                        X :: Matrix)
 
   n = size(X, 1)

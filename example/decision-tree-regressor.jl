@@ -2,15 +2,15 @@ using MeLOne
 using Plots
 gr(size=(800,600))
 
-function knnregressor()
+function decision_tree_regressor()
   n = 30
   x = collect(range(-1, 2, length=n))
   y = x.^2 + 2x .+ 3 + randn(n) * 0.2
   X = reshape(x, n, 1)
 
   c = 1
-  for k = 1:2:7, w in [:uniform, :distance]
-    model = KNNRegressor(n_neighbors=k, weights=w)
+  for d = 1:5
+    model = DecisionTreeRegressor(max_depth=d)
     fit!(model, X, y)
     y_pred = predict(model, X)
 
@@ -21,11 +21,11 @@ function knnregressor()
     plot!(xg, yg, c=:red, lw=2)
 
     r2 = round(r2_score(y, y_pred), digits=2)
-    title!("KNNRegressor: n_neighbors=$k, weights=$w, r2 = $r2")
+    title!("DecisionTreeRegressor: max_depth=$d, r2 = $r2")
 
-    png("knnregressor-$c")
+    png("decision-tree-regressor-$c")
     c += 1
   end
 end
 
-knnregressor()
+decision_tree_regressor()
