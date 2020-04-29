@@ -3,6 +3,7 @@
 **M**achin**e** **L**earning **One** - A package with simple implementation of Machine Learning models, made live on [twitch](https://twitch.tv/abelsiqueira).
 
 [![Build Status](https://travis-ci.org/CiDAMO/MeLOne.jl.svg?branch=master)](https://travis-ci.org/CiDAMO/MeLOne.jl)
+[![Coverage Status](https://coveralls.io/repos/github/CiDAMO/MeLOne.jl/badge.svg?branch=master)](https://coveralls.io/github/CiDAMO/MeLOne.jl?branch=master)
 
 ## Methods
 

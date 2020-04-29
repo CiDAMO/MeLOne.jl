@@ -1,7 +1,7 @@
 using MeLOne
 
 # Regression
-#include("decision-tree-regressor.jl")
+include("decision-tree-regressor.jl")
 include("linear-regression.jl")
 include("knn-regressor.jl")
 
