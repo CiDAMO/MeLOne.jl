@@ -27,7 +27,7 @@ end
 
 function fit!(model :: RandomForest,
               X :: Matrix, y :: Vector)
-  tree_options = Dict{Symbol, Any}(k => get(model.options, k, v) for (k,v) in decision_tree_option_list)
+  tree_options = Dict{Symbol, Any}(k => get(model.options, k, v) for (k,v) in decision_tree_classifier_option_list)
   tree_options[:splitter] = :random
 
   model._classes = unique(y)

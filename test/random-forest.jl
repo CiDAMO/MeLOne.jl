@@ -19,7 +19,7 @@ using LinearAlgebra, Test
   n = size(X, 1)
   y = rand(0:1, n)
   model = RandomForest()
-  tree = DecisionTree() # exhaustive ⇒ overfitting
+  tree = DecisionTreeClassifier() # exhaustive ⇒ overfitting
   fit!(tree, X, y)
   model._classes = tree._classes
   model.trees = [tree]
