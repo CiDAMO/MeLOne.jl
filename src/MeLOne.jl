@@ -16,5 +16,6 @@ include("decision-tree-classifier.jl")
 include("knn-classifier.jl")
 include("logistic-regression.jl")
 include("random-forest.jl")
+include("svc.jl")
 
 end

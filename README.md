@@ -42,3 +42,4 @@ In addition, some models will implement
 <img src="example/linear-regression.png" height="400">
 <img src="example/logistic-regression.png" height="400">
 <img src="example/random-forest-5.png" height="400">
+<img src="example/svc-rbf.png" height="400">
